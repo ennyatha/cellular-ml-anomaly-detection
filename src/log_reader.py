@@ -1,5 +1,7 @@
 from collections import defaultdict
 from feature_extractor import extract_features
+from anomaly_model import train_model, predict_anomaly
+
 
 
 def read_log_file(file_path):
@@ -63,3 +65,11 @@ if __name__ == "__main__":
     for key, value in features.items():
         print(f"{key}: {value}")
 
+    model = train_model(features)
+    is_anomaly = predict_anomaly(model, features)
+
+    print("\n--- ML Anomaly Detection ---")
+    if is_anomaly:
+       print("🚨 Anomaly Detected")
+    else:
+       print("✅ System Normal")
